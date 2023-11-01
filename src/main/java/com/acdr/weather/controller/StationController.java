@@ -8,15 +8,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(ApiRoute.STATIONS_ROUTE)
+@CrossOrigin(origins = "*")
 @Slf4j
 @AllArgsConstructor
 public class StationController {
@@ -37,6 +37,19 @@ public class StationController {
     @GetMapping("/{id}/sensors")
     public SensorResponse getSensorsByStationId(@PathVariable int id) {
         return new SensorResponse(sensorService.getSensorsByStationId(id));
+    }
+
+    @GetMapping("/{stationId}/sensors/{sensorId}")
+    public ResponseEntity<Sensor> getSensorOfStationById(@PathVariable int stationId, @PathVariable int sensorId) {
+        var sensorResult = sensorService.getSensorOfStationById(stationId, sensorId);
+
+        return sensorResult.map(sensor -> ResponseEntity
+                .status(HttpStatus.OK)
+                .body(sensor)
+        ).orElseGet(() -> ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(null));
+
     }
 
     @Data

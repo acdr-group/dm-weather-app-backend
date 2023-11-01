@@ -1,7 +1,7 @@
 package com.acdr.weather.service;
 
 import com.acdr.weather.entity.Reading;
-import com.acdr.weather.entity.SensorMeasurement;
+import com.acdr.weather.entity.ReadingForMultipleSensors;
 import com.acdr.weather.entity.SensorReadingForStation;
 import com.acdr.weather.helper.ClassObjectToListConverter;
 import com.acdr.weather.helper.RestClient;
@@ -38,7 +38,7 @@ public class ReadingService {
         return readings != null ? readings.readings : List.of();
     }
 
-    public final List<SensorMeasurement> getReadingsByParameters(
+    public final ReadingForMultipleSensors getReadingsByParameters(
             final @NonNull String start,
             final @NonNull String end,
             final @NonNull String[] stations,
@@ -77,7 +77,7 @@ public class ReadingService {
         assert readings != null;
         var sensorsByName = readings.data.get(0).getSensorsByName();
 
-        return ClassObjectToListConverter.convert(sensorsByName);
+        return new ReadingForMultipleSensors(ClassObjectToListConverter.convert(sensorsByName), readings.timeStamps);
     }
 
     @Data
@@ -87,10 +87,10 @@ public class ReadingService {
     private static class ReadingResponse {
 
         @JsonProperty(value = "from_timestamp", required = true)
-        private @NonNull String fromTimestamp;
+        private String fromTimestamp;
 
         @JsonProperty(value = "to_timestamp", required = true)
-        private @NonNull String toTimestamp;
+        private String toTimestamp;
 
         @JsonProperty(required = true)
         private @NonNull List<Reading> readings;
@@ -103,10 +103,10 @@ public class ReadingService {
     private static class ReadingWithChartDataResponse {
 
         @JsonProperty("from_timestamp")
-        private @NonNull String fromTimestamp;
+        private String fromTimestamp;
 
         @JsonProperty("to_timestamp")
-        private @NonNull String toTimestamp;
+        private String toTimestamp;
 
         @JsonProperty()
         private String resolution;
@@ -115,6 +115,6 @@ public class ReadingService {
         private List<String> timeStamps;
 
         @JsonProperty("data")
-        private @NonNull List<SensorReadingForStation> data;
+        private List<SensorReadingForStation> data;
     }
 }

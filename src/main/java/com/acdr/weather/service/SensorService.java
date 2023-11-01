@@ -7,6 +7,8 @@ import lombok.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -18,6 +20,14 @@ public class SensorService {
         var endpoint = "/station/" + id + "/sensors";
         var stationWithSensors = restClient.get(endpoint, StationWithSensorsResponse.class).getBody();
         return stationWithSensors != null ? stationWithSensors.sensors : List.of();
+    }
+
+    public final Optional<Sensor> getSensorOfStationById(final int stationId, final int sensorId) {
+        var sensorsOfStation = this.getSensorsByStationId(stationId);
+        return sensorsOfStation
+                .stream()
+                .filter(s -> Objects.equals(s.getId(), sensorId))
+                .findFirst();
     }
 
     @Data

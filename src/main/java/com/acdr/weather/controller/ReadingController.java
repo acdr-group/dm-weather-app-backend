@@ -1,9 +1,6 @@
 package com.acdr.weather.controller;
 
-import com.acdr.weather.entity.Reading;
-import com.acdr.weather.entity.SensorByName;
-import com.acdr.weather.entity.SensorMeasurement;
-import com.acdr.weather.entity.SensorReadingForStation;
+import com.acdr.weather.entity.*;
 import com.acdr.weather.service.ReadingService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,16 +19,14 @@ public class ReadingController {
     private final ReadingService readingService;
 
     @GetMapping()
-    public ReadingForMultipleSensorsResponse getReadings(
+    public ReadingForMultipleSensors getReadings(
             final @RequestParam @NonNull String start,
             final @RequestParam @NonNull String end,
             final @RequestParam @NonNull String[] stations,
             final @RequestParam @NonNull String[] sensors,
             final @RequestParam(required = false) String timezone
     ) {
-        return new ReadingForMultipleSensorsResponse(
-                readingService.getReadingsByParameters(start, end, stations, sensors, timezone)
-        );
+        return readingService.getReadingsByParameters(start, end, stations, sensors, timezone);
     }
 
     @GetMapping("/{stationId}/{sensorId}/{timestamp}/{timespan}")
@@ -51,11 +46,5 @@ public class ReadingController {
     @AllArgsConstructor
     public static class ReadingResponse {
         @NonNull List<Reading> readings;
-    }
-
-    @Data
-    @AllArgsConstructor
-    public static class ReadingForMultipleSensorsResponse {
-        @NonNull List<SensorMeasurement> sensorMeasurements;
     }
 }
