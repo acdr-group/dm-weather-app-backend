@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController()
 @RequestMapping(ApiRoute.READINGS_ROUTE)
+@CrossOrigin(origins = "*")
 @Slf4j
 @AllArgsConstructor
 public class ReadingController {
