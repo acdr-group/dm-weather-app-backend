@@ -10,13 +10,16 @@ import jakarta.annotation.Nullable;
 import lombok.*;
 import org.springframework.stereotype.Service;
 
+import org.springframework.cache.annotation.Cacheable;
+
+
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class ReadingService {
 
-    private final RestClient restClient;
+    private final KlimaCacheService cacheService;
 
     public final List<Reading> getReadingsByStationIdAndSensorIdInGivenTimespan(
             final int stationId,
@@ -34,17 +37,20 @@ public class ReadingService {
                 .concat("/")
                 .concat(String.valueOf(timespan));
 
-        var readings = restClient.get(endpoint, ReadingResponse.class).getBody();
+        var readings = cacheService.get(endpoint, ReadingResponse.class).getBody();
         return readings != null ? readings.readings : List.of();
     }
 
-    public final ReadingForMultipleSensors getReadingsByParameters(
+
+    public ReadingForMultipleSensors getReadingsByParameters(
             final @NonNull String start,
             final @NonNull String end,
             final @NonNull String[] stations,
             final @NonNull String[] sensors,
             final @Nullable String timezone
     ) {
+        cacheService.printKey();
+        System.out.println(start);
         StringBuilder endpoint = new StringBuilder();
         StringBuilder stationsQueryParam = new StringBuilder();
         StringBuilder sensorsQueryParam = new StringBuilder();
@@ -73,7 +79,7 @@ public class ReadingService {
                     .append(timezone);
         }
 
-        var readings = restClient.get(endpoint.toString(), ReadingWithChartDataResponse.class).getBody();
+        var readings = cacheService.get(endpoint.toString(), ReadingWithChartDataResponse.class).getBody();
         assert readings != null;
         var sensorsByName = readings.data.get(0).getSensorsByName();
 

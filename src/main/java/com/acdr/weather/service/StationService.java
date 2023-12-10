@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
+import org.springframework.cache.annotation.Cacheable;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,10 +14,10 @@ import java.util.Objects;
 @AllArgsConstructor
 public class StationService {
 
-    private final RestClient restClient;
+    private final KlimaCacheService cacheService;
 
     public final List<Station> getStations() {
-        return restClient.get("/stations", new ParameterizedTypeReference<List<Station>>() {}).getBody();
+        return cacheService.get("/stations", new ParameterizedTypeReference<List<Station>>() {}).getBody();
     }
 
     public final Station getStationById(final int id) {
