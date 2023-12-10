@@ -2,3 +2,13 @@ weatherappauthentication:
   api-base-url: https://klima.rgeo.de/api
   access-token:
   header-key-for-access-token: X-KLIMASRV-AUTH
+
+springdoc:
+  api-docs:
+    # Enable or disable Swagger UI
+    enabled: true
+    # Specify the path of the OpenAPI documentation
+    path: /api-docs
+  # Specify the path of the Swagger UI
+  swagger-ui:
+    path: /swagger-ui.html

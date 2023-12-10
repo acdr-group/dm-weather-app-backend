@@ -14,11 +14,11 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SensorService {
 
-    private final RestClient restClient;
+    private final KlimaCacheService cacheService;
 
     public final List<Sensor> getSensorsByStationId(final int id) {
         var endpoint = "/station/" + id + "/sensors";
-        var stationWithSensors = restClient.get(endpoint, StationWithSensorsResponse.class).getBody();
+        var stationWithSensors = cacheService.get(endpoint, StationWithSensorsResponse.class).getBody();
         return stationWithSensors != null ? stationWithSensors.sensors : List.of();
     }
 
