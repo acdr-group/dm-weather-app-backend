@@ -1,8 +1,9 @@
 package com.acdr.weather.controller;
 
 final class ApiRoute {
-    public static final String STATIONS_ROUTE = "/stations";
-    public static final String READINGS_ROUTE = "/readings";
+
+    public static final String WEATHER_ROUTE = "/weather";
+    public static final String FORECAST_ROUTE = "/forecast";
 
     private ApiRoute() {}
 }

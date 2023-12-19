@@ -9,14 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Station {
+public class WeatherItem {
 
-    private int id;
-    private String name;
-    private String label;
-    private String country;
+    private String main;
+
     private String description;
-    private String longitude;
-    private String latitude;
-    private String altitude;
+
+    private String icon;
 }

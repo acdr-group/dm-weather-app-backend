@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Reading {
+public class CloudParams {
 
-    private double value;
-    private String validity;
-    private String created;
+    private Integer all;
 }
