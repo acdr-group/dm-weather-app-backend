@@ -12,6 +12,6 @@ public class ApplicationProperty {
     @Value("${weatherappauthentication.access-token}")
     public String accessToken;
 
-    @Value("${weatherappauthentication.header-key-for-access-token}")
-    public String headerKeyForAccessToken;
+    @Value("${weatherappauthentication.api-version}")
+    public String apiVersion;
 }

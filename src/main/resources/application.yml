@@ -1,4 +1,4 @@
 weatherappauthentication:
-  api-base-url: https://klima.rgeo.de/api
+  api-base-url:
+  api-version:
   access-token:
-  header-key-for-access-token: X-KLIMASRV-AUTH
