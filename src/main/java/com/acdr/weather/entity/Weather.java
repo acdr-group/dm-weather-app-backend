@@ -35,9 +35,13 @@ public class Weather {
 
     private Integer visibility;
 
-    private WindParams wind;
+    private Double windSpeed;
 
-    private CloudParams clouds;
+    private Double windDirection;
+
+    private Double windGust;
+
+    private Double clouds;
 
     private Integer dateTime;
 

@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CloudParams {
 
-    private Integer all;
+    private Double all;
 }
