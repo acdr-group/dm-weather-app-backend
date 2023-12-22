@@ -14,4 +14,7 @@ public class ApplicationProperty {
 
     @Value("${weatherappauthentication.api-version}")
     public String apiVersion;
+
+    @Value("${weatherdatacachingtime}")
+    public long dataCachingTime;
 }

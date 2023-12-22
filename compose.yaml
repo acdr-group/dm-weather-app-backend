@@ -1,0 +1,25 @@
+version: '3'
+services:
+  database:
+    container_name: dm-weather-app-database
+    image: postgres:12
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_USER: 'dmweatherappadmin'
+      POSTGRES_PASSWORD: 'MIIG4gIBAAKCAYEAvNEoRKo3Iel6Nu16'
+      POSTGRES_DB: 'weather'
+
+  backend:
+    container_name: dm-weather-app-backend
+    image: dm-weather-app-backend:1.0.0
+    depends_on:
+      - database
+    ports:
+      - "127.0.0.1:8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/weather
+      # TODO: Token should be removed from hier and set instead inside the CI/CD environment
+      WEATHERAPPAUTHENTICATION_ACCESSTOKEN: 86c42a625b5936d0f923264babb0dd90
+      WEATHERAPPAUTHENTICATION_APIBASEURL: https://api.openweathermap.org/data
+      WEATHERAPPAUTHENTICATION_APIVERSION: 2.5

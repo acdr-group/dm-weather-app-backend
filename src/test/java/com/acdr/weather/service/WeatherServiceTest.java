@@ -48,7 +48,7 @@ public class WeatherServiceTest {
         mockWind.setDeg(180.0);
 
         CloudParams mockClouds = new CloudParams();
-        mockClouds.setAll(60);
+        mockClouds.setAll(60.5);
 
         WeatherBulk mockWeatherBulk = new WeatherBulk();
         mockWeatherBulk.setDt(1643195200);
@@ -69,19 +69,19 @@ public class WeatherServiceTest {
 
         mockWeather = WeatherConverter.convertWeatherBulkToWeather(mockWeatherBulk);
 
-        when(weatherService.getCurrentWeather(any())).thenReturn(mockWeather);
+        when(weatherService.getCurrentWeather()).thenReturn(mockWeather);
     }
 
     @Test
     public void weatherDataResponseShouldNotBeNull() {
-        Weather actualWeather = weatherService.getCurrentWeather(new HashMap<>());
+        Weather actualWeather = weatherService.getCurrentWeather();
         assertNotEquals(actualWeather, null);
     }
 
     @Test
     public void shouldLoadCurrentWeatherDataOfSpecifiedLocation() {
 
-        Weather actualWeather = weatherService.getCurrentWeather(new HashMap<>());
+        Weather actualWeather = weatherService.getCurrentWeather();
 
         assertNotEquals(mockWeather, null);
         assertEquals(mockWeather.getCityName(), actualWeather.getCityName());
@@ -94,7 +94,7 @@ public class WeatherServiceTest {
 
     @Test
     public void responseShouldContainMainWeatherData() {
-        Weather actualWeather = weatherService.getCurrentWeather(new HashMap<>());
+        Weather actualWeather = weatherService.getCurrentWeather();
 
         assertEquals(mockWeather.getMain(), actualWeather.getMain());
         assertEquals(mockWeather.getTemp(), actualWeather.getTemp());

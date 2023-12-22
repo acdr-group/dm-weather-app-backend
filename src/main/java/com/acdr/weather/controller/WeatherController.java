@@ -16,7 +16,7 @@ public class WeatherController {
     private final WeatherService currentWeatherBulkService;
 
     @GetMapping
-    Weather getCurrentWeather(final @RequestParam Map<String, String> params) {
-        return currentWeatherBulkService.getCurrentWeather(params);
+    Weather getCurrentWeather() {
+        return currentWeatherBulkService.getCurrentWeather();
     }
 }

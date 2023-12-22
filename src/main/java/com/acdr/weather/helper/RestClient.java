@@ -3,6 +3,7 @@ package com.acdr.weather.helper;
 import com.acdr.weather.config.ApplicationProperty;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class RestClient {
                 .concat("/")
                 .concat(applicationProperty.apiVersion)
                 .concat(endpoint)
+                .concat("?lat=49.0068705&lon=8.4034195&units=metric&lang=de&")
                 .concat("appid=")
                 .concat(applicationProperty.accessToken);
 

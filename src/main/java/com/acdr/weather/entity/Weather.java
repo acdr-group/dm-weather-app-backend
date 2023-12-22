@@ -1,15 +1,23 @@
 package com.acdr.weather.entity;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Weather {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid")
+    private UUID id;
 
     private String main;
 
@@ -54,4 +62,6 @@ public class Weather {
     private Integer timezone;
 
     private String cityName;
+
+    private boolean isCurrent;
 }

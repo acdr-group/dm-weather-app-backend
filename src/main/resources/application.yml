@@ -1,0 +1,26 @@
+# CUSTOM ENVIRONMENT VARS
+weatherappauthentication:
+  api-base-url:
+  api-version:
+  access-token:
+weatherdatacachingtime: 3600000
+
+# JPA CONFIGS
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/weather
+    username: dmweatherappadmin
+    password: MIIG4gIBAAKCAYEAvNEoRKo3Iel6Nu16
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
+
+# SERVER CONFIGS
+server:
+  port: 8080
