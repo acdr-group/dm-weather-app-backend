@@ -37,5 +37,8 @@ jobs:
       with:
         arguments: build
 
-#    - name: Run the application with bootRun
-#      run: ./gradlew bootRun
+    - name: Run checks prior to tests
+      run: ./gradlew test
+
+    - name: Run units tests
+      run: ./gradlew test
